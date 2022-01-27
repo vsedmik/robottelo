@@ -380,6 +380,7 @@ def test_positive_create_with_puppet_ca_proxy(module_puppet_enabled_sat):
 
 
 @pytest.mark.tier2
+@pytest.mark.skip_if_open("BZ:2046573")
 def test_positive_end_to_end_with_puppet_class(
     module_puppet_org,
     module_puppet_loc,
