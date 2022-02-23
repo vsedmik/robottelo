@@ -114,6 +114,17 @@ def module_puppet_classes(
     )
 
 
+@pytest.fixture(scope="module")
+def module_default_puppet_proxy(session_puppet_enabled_sat):
+    """Use the default installation puppet smart proxy"""
+    proxy = (
+        session_puppet_enabled_sat.api.SmartProxy()
+        .search(query={'search': f'url = {session_puppet_enabled_sat.url}:9090'})[0]
+        .read()
+    )
+    return session_puppet_enabled_sat.api.SmartProxy(id=proxy.id).read()
+
+
 @pytest.fixture(scope='session', params=[True, False], ids=["puppet_enabled", "puppet_disabled"])
 def parametrized_puppet_sat(request, default_sat, session_puppet_enabled_sat):
     if request.param:
